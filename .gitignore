@@ -1,0 +1,18 @@
+# Fichier d'environnement — NE JAMAIS COMMITTER
+.env
+
+# Dépendances
+vendor/
+
+# Logs
+*.log
+error_log
+
+# Fichiers systèmes
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.sublime-workspace

@@ -1,0 +1,172 @@
+/* ============================================================
+   BiblioNet — Feuille de style principale
+   ============================================================ */
+
+/* --- Palette & tokens --- */
+:root {
+  --bn-primary:   #1a3c5e;
+  --bn-accent:    #e67e22;
+  --bn-light:     #f4f7fb;
+  --bn-dark:      #0f2237;
+  --bn-navbar-h:  64px;
+  --bn-radius:    0.75rem;
+  --bn-shadow:    0 4px 20px rgba(0,0,0,.08);
+  --bn-trans:     0.25s ease;
+}
+
+/* --- Base --- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bn-light);
+  color: #2c3e50;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- Navbar --- */
+.bn-navbar {
+  background: linear-gradient(135deg, var(--bn-dark) 0%, var(--bn-primary) 100%);
+  height: var(--bn-navbar-h);
+}
+
+.bn-navbar .navbar-brand { letter-spacing: .5px; }
+
+.bn-navbar .nav-link {
+  color: rgba(255,255,255,.8) !important;
+  font-weight: 500;
+  border-radius: 0.4rem;
+  padding: .4rem .75rem !important;
+  transition: background var(--bn-trans), color var(--bn-trans);
+}
+
+.bn-navbar .nav-link:hover,
+.bn-navbar .nav-link.active {
+  color: #fff !important;
+  background: rgba(255,255,255,.12);
+}
+
+/* --- Main --- */
+.bn-main {
+  flex: 1;
+  padding-top: calc(var(--bn-navbar-h) + 1.5rem);
+  padding-bottom: 3rem;
+}
+
+/* --- Footer --- */
+.bn-footer {
+  background: var(--bn-dark);
+}
+
+/* --- Cards --- */
+.bn-card {
+  background: #fff;
+  border-radius: var(--bn-radius);
+  box-shadow: var(--bn-shadow);
+  border: none;
+  transition: transform var(--bn-trans), box-shadow var(--bn-trans);
+}
+
+.bn-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(0,0,0,.12);
+}
+
+/* --- Hero section (catalogue) --- */
+.bn-hero {
+  background: linear-gradient(135deg, var(--bn-dark) 0%, var(--bn-primary) 100%);
+  color: #fff;
+  padding: 4rem 0 3rem;
+  margin-bottom: 2.5rem;
+  border-radius: 0 0 2rem 2rem;
+}
+
+.bn-hero h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; }
+.bn-hero p  { opacity: .85; font-size: 1.1rem; }
+
+/* --- Champ de recherche hero --- */
+.bn-search-input {
+  border-radius: 2rem 0 0 2rem !important;
+  border: none !important;
+  font-size: 1rem;
+  height: 52px;
+}
+
+.bn-search-btn {
+  border-radius: 0 2rem 2rem 0 !important;
+  background: var(--bn-accent);
+  border-color: var(--bn-accent);
+  color: #fff;
+  font-weight: 600;
+  height: 52px;
+  padding: 0 1.5rem;
+  transition: background var(--bn-trans);
+}
+
+.bn-search-btn:hover { background: #cf6d17; border-color: #cf6d17; color: #fff; }
+
+/* --- Badge disponibilité --- */
+.badge-dispo    { background: #1abc9c; color: #fff; }
+.badge-indispo  { background: #e74c3c; color: #fff; }
+
+/* --- Tableau admin --- */
+.bn-table th {
+  background: var(--bn-primary);
+  color: #fff;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.bn-table tbody tr { transition: background var(--bn-trans); }
+.bn-table tbody tr:hover { background: rgba(26,60,94,.04); }
+
+/* --- Boutons d'action dans les tableaux --- */
+.btn-action {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.4rem;
+}
+
+/* --- Formulaires --- */
+.bn-form-card {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: var(--bn-primary);
+  box-shadow: 0 0 0 .2rem rgba(26,60,94,.2);
+}
+
+/* --- Stats dashboard --- */
+.bn-stat-card {
+  border-left: 4px solid var(--bn-accent);
+  background: #fff;
+  border-radius: var(--bn-radius);
+  box-shadow: var(--bn-shadow);
+  padding: 1.25rem 1.5rem;
+}
+
+.bn-stat-card .stat-value { font-size: 2rem; font-weight: 700; color: var(--bn-primary); }
+.bn-stat-card .stat-label { font-size: .85rem; color: #7f8c8d; }
+
+/* --- Animation d'apparition --- */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+.fade-in-up { animation: fadeInUp .4s ease both; }
+
+/* --- Responsive --- */
+@media (max-width: 576px) {
+  .bn-hero { border-radius: 0; }
+}
