@@ -5,8 +5,29 @@ use App\Core\Controller;
 
 class EmpruntController extends Controller
 {
-    public function index(): void      { $this->requireAuth(); /* TODO J3 */ }
-    public function createForm(): void  { $this->requireAuth(); /* TODO J3 */ }
-    public function create(): void     { $this->requireAuth(); /* TODO J3 */ }
-    public function retour(int $id): void { $this->requireAuth(); /* TODO J3 */ }
+    public function index(): void
+    {
+        $this->requireAuth();
+        $this->render('emprunts/index', [
+            'pageTitle' => 'Emprunts',
+        ]);
+    }
+
+    public function createForm(): void
+    {
+        $this->requireAuth();
+        $this->redirect('emprunts');
+    }
+
+    public function create(): void
+    {
+        $this->requireAuth();
+        $this->redirect('emprunts');
+    }
+
+    public function retour(int $id): void
+    {
+        $this->requireAuth();
+        $this->redirect('emprunts');
+    }
 }

@@ -26,7 +26,7 @@ CREATE TABLE `users` (
 
 -- Compte de démonstration : admin@biblionet.com / password : Admin1234
 INSERT INTO `users` (`nom`, `email`, `password`) VALUES
-  ('Administrateur', 'admin@biblionet.com', '$2y$12$8K1p/a0dR1lVX2tO6Y3ZLOQBwNHfPX7.Xt1ZJjNVJqxBzKm6UqH6i');
+  ('Administrateur', 'admin@biblionet.com', '$2y$10$g6xihrULKPw5rapOgzflVeb6pXq/Ooj.155SImcKmknioE48lbJr6');
 
 -- ------------------------------------------------------------
 -- Table : livres
@@ -37,7 +37,7 @@ CREATE TABLE `livres` (
   `titre`           VARCHAR(200) NOT NULL,
   `auteur`          VARCHAR(150) NOT NULL,
   `categorie`       VARCHAR(100) NOT NULL DEFAULT '',
-  `annee`           YEAR         NOT NULL,
+  `annee`           SMALLINT UNSIGNED NOT NULL,
   `nb_exemplaires`  TINYINT UNSIGNED NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

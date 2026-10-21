@@ -82,9 +82,12 @@
             <i class="bi bi-person-circle me-1"></i>
             <?= htmlspecialchars($_SESSION['user_nom'] ?? 'Bibliothécaire') ?>
           </span>
-          <a href="<?= APP_URL ?>/auth/logout" class="btn btn-outline-light btn-sm">
-            <i class="bi bi-box-arrow-right me-1"></i>Déconnexion
-          </a>
+          <form action="<?= APP_URL ?>/auth/logout" method="POST" class="m-0">
+            <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
+            <button type="submit" class="btn btn-outline-light btn-sm">
+              <i class="bi bi-box-arrow-right me-1"></i>D&eacute;connexion
+            </button>
+          </form>
         <?php else: ?>
           <a href="<?= APP_URL ?>/auth/login" class="btn btn-light btn-sm">
             <i class="bi bi-box-arrow-in-right me-1"></i>Connexion

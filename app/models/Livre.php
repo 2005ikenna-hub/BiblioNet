@@ -98,8 +98,8 @@ class Livre
             ':titre'          => $data['titre'],
             ':auteur'         => $data['auteur'],
             ':categorie'      => $data['categorie'] ?? '',
-            ':annee'          => $data['annee'],
-            ':nb_exemplaires' => $data['nb_exemplaires'] ?? 1,
+            ':annee'          => (int) $data['annee'],
+            ':nb_exemplaires' => (int) ($data['nb_exemplaires'] ?? 1),
         ]);
         return (int) $pdo->lastInsertId();
     }
@@ -118,18 +118,19 @@ class Livre
             ':titre'          => $data['titre'],
             ':auteur'         => $data['auteur'],
             ':categorie'      => $data['categorie'] ?? '',
-            ':annee'          => $data['annee'],
-            ':nb_exemplaires' => $data['nb_exemplaires'] ?? 1,
+            ':annee'          => (int) $data['annee'],
+            ':nb_exemplaires' => (int) ($data['nb_exemplaires'] ?? 1),
             ':id'             => $id,
         ]);
     }
 
     /** Supprime un livre */
-    public static function delete(int $id): void
+    public static function delete(int $id): bool
     {
-        $pdo  = Database::getInstance();
-        $stmt = $pdo->prepare('DELETE FROM livres WHERE id = :id');
-        $stmt->execute([':id' => $id]);
+        $pdo = Database::getInstance();
+        $stmt = $pdo->prepare('DELETE FROM livres WHERE id = :id AND NOT EXISTS (SELECT 1 FROM emprunts WHERE livre_id = :loan_livre_id)');
+        $stmt->execute([':id' => $id, ':loan_livre_id' => $id]);
+        return $stmt->rowCount() === 1;
     }
 
     // --------------------------------------------------------

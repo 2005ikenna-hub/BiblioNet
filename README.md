@@ -66,7 +66,18 @@ biblionet/
 
 - ✅ Catalogue public avec recherche et disponibilité
 - ✅ Authentification bibliothécaire (session + password_hash)
-- ✅ CRUD Livres
-- ✅ CRUD Adhérents
-- ✅ Gestion des emprunts et retours
-- ✅ Règle de disponibilité (refus si 0 exemplaire dispo)
+- ✅ CRUD Livres (J2)
+- ✅ CRUD Adhérents (J2)
+- ⏳ Gestion des emprunts et retours (J3)
+- ⏳ Règle de disponibilité (J3)
+
+
+## État du projet — Jour 2
+
+- Authentification bibliothécaire par session, avec `password_hash` / `password_verify`.
+- CRUD des livres et des adhérents avec validation des formulaires.
+- Les actions de modification et de suppression utilisent POST et un jeton CSRF.
+- La suppression d'un livre ou d'un adhérent ayant un historique d'emprunt est refusée afin de préserver cet historique.
+- Compte de démonstration après import du script SQL : `admin@biblionet.com` / `Admin1234`.
+
+Pour une base déjà existante, exécuter une seule fois `database/migrations/001_annee_publication_smallint.sql` pour conserver les années de publication antérieures à 1901.

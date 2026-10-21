@@ -34,6 +34,9 @@ spl_autoload_register(function (string $class): void {
 
 // --- Démarrage de la session ---
 session_start();
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
 
 // --- Instanciation du routeur ---
 $router = new App\Core\Router();
