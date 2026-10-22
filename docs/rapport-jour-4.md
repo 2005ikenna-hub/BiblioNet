@@ -24,12 +24,14 @@ La migration `002_images_livres_adherents.sql` ajoute les colonnes nécessaires 
 - Lint PHP et test automatisé du modèle d’emprunt réussis.
 - Tests navigateur réussis pour ajout, affichage, remplacement et suppression d’images.
 
-La base de démonstration locale conserve 18 livres et 10 adhérents. Les fiches temporaires utilisées pour les tests ont été supprimées.
+La base InfinityFree affichée dans phpMyAdmin contient les quatre tables attendues, avec 18 livres, 10 adhérents, 7 emprunts et un compte bibliothécaire. Les fiches temporaires créées pendant les tests locaux ont été supprimées. Une photo d’adhérent a un chemin enregistré mais le fichier n’est pas accessible sur le serveur. Un fallback vers l’avatar par défaut a été ajouté au code local; il apparaîtra en production après le prochain push.
 
 ![Catalogue public](capture-catalogue.png)
 
 ## Déploiement et soutenance
 
-Le déploiement public n’est pas encore effectué : l’hébergeur est en cours de recherche. Une fois le fournisseur choisi, il restera à créer la base MySQL, importer `database/biblionet.sql`, transférer le projet, faire pointer le site vers `public/`, configurer `.env` hors du dossier public, rendre `public/uploads/` accessible en écriture et tester toutes les fonctions sur l’URL HTTPS.
+Le site public est déployé sur InfinityFree à l’adresse https://biblionet.ct.ws/. GitHub Actions a terminé le transfert FTPS avec succès. Le catalogue et la recherche publique sont vérifiés en production; l’accès à `/emprunts` redirige vers la connexion si le visiteur n’est pas authentifié.
+
+Avant la soutenance, il reste à tester les créations, modifications, suppressions et retours avec une session bibliothécaire en production. L’upload d’images doit aussi être retesté : InfinityFree signalait un blocage temporaire de certaines requêtes `multipart/form-data` à la date de ce bilan.
 
 Avant la soutenance, remplacer le mot de passe de démonstration, renseigner les noms des membres et l’adresse publique, puis vérifier les parcours en ligne. Aucun mot de passe d’hébergement ou de base ne doit être ajouté au dépôt GitHub ni à ce rapport.

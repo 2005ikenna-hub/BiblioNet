@@ -84,7 +84,7 @@ La racine web doit pointer vers `public/`; le fichier `.env` reste à la racine 
 4. Vérifier que `public/uploads/` est accessible en écriture par PHP, activer HTTPS et désactiver `display_errors` en production (`APP_ENV=production`).
 5. Tester la connexion, les CRUD, la recherche, les emprunts et les retours sur l’URL publique; changer le compte de démonstration.
 
-État au 22 octobre 2026 : l’application et les parcours J3 ont été vérifiés en local. Le déploiement sur un hébergeur et le test d’une URL publique restent à effectuer avec les accès de l’équipe.
+État au 22 octobre 2026 : le site est publié sur `https://biblionet.ct.ws/` via GitHub Actions/FTPS. Le catalogue public et la recherche ont été vérifiés en production; les CRUD et les retours restent à tester avec une session bibliothécaire. Les tests de base locaux nécessitent que MySQL soit démarré dans XAMPP.
 
 ## Déploiement automatique sur InfinityFree
 

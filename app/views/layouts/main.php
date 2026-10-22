@@ -28,6 +28,22 @@
 
   <!-- Styles personnalisés -->
   <link href="<?= APP_URL ?>/assets/css/style.css?v=20261022-images1" rel="stylesheet" />
+  <script>
+    document.addEventListener('error', (event) => {
+      const image = event.target;
+      if (!(image instanceof HTMLImageElement) || !image.dataset.fallbackClass) return;
+
+      const fallback = document.createElement(image.dataset.fallbackTag || 'span');
+      fallback.className = image.dataset.fallbackClass;
+      fallback.setAttribute('aria-label', image.alt || 'Image indisponible');
+
+      const icon = document.createElement('i');
+      icon.className = image.dataset.fallbackIcon || 'bi bi-image';
+      icon.setAttribute('aria-hidden', 'true');
+      fallback.append(icon);
+      image.replaceWith(fallback);
+    }, true);
+  </script>
 </head>
 <body>
 

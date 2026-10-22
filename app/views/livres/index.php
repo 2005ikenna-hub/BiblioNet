@@ -11,7 +11,7 @@
       <tbody>
         <?php foreach ($livres as $livre): ?>
           <tr>
-            <td><?php if (!empty($livre['image_path'])): ?><img src="<?= APP_URL ?>/<?= htmlspecialchars($livre['image_path'], ENT_QUOTES, 'UTF-8') ?>" alt="Couverture de <?= htmlspecialchars($livre['titre'], ENT_QUOTES, 'UTF-8') ?>" class="bn-table-thumbnail"><?php else: ?><span class="bn-table-placeholder" aria-label="Aucune image"><i class="bi bi-book" aria-hidden="true"></i></span><?php endif; ?></td>
+            <td><?php if (!empty($livre['image_path'])): ?><img src="<?= APP_URL ?>/<?= htmlspecialchars($livre['image_path'], ENT_QUOTES, 'UTF-8') ?>" alt="Couverture de <?= htmlspecialchars($livre['titre'], ENT_QUOTES, 'UTF-8') ?>" class="bn-table-thumbnail" data-fallback-class="bn-table-placeholder" data-fallback-icon="bi bi-book"><?php else: ?><span class="bn-table-placeholder" aria-label="Aucune image"><i class="bi bi-book" aria-hidden="true"></i></span><?php endif; ?></td>
             <td class="fw-semibold"><?= htmlspecialchars($livre['titre'], ENT_QUOTES, 'UTF-8') ?></td>
             <td><?= htmlspecialchars($livre['auteur'], ENT_QUOTES, 'UTF-8') ?></td>
             <td><?= htmlspecialchars($livre['categorie'], ENT_QUOTES, 'UTF-8') ?></td>

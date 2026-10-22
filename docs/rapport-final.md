@@ -63,8 +63,10 @@ Une anomalie de la base locale provenait de l’ancien type MySQL `YEAR`, qui av
 
 ## 5. Déploiement et suite
 
-Le déploiement public n’a pas été effectué dans le cadre de ces vérifications : aucun accès d’hébergement ni domaine de production n’est configuré dans le workspace. La procédure prévue est de créer la base et l’utilisateur MySQL sur l’hébergement, importer `database/biblionet.sql`, transférer les fichiers, faire pointer le domaine vers `public/`, puis créer un `.env` de production avec `APP_ENV=production` et une URL HTTPS.
+Le site est déployé sur https://biblionet.ct.ws/ depuis le dépôt GitHub avec GitHub Actions et FTPS. Le workflow a terminé avec succès. Le catalogue public, la recherche de « Dune » et la redirection d’un visiteur non connecté vers la page de connexion ont été vérifiés en production. La base InfinityFree observée contient quatre tables, 18 livres, 10 adhérents, 7 emprunts et un compte bibliothécaire.
 
-Avant la soutenance, l’équipe doit tester les parcours sur l’URL publique, vérifier que les erreurs ne sont pas affichées, remplacer le mot de passe du compte de démonstration et partager les identifiants de jury par un canal approprié. Les noms des membres, l’établissement et l’URL finale sont à compléter.
+Les CRUD et retours doivent encore être testés en production après connexion bibliothécaire. Une photo d’adhérent référence un fichier absent de l’hébergement; un fallback vers l’avatar par défaut a été ajouté au code local et doit être poussé pour être publié. Le service MySQL XAMPP était arrêté lors du dernier contrôle local, le test PDO n’a donc pas pu être relancé à cette date.
+
+Avant la soutenance, tester tous les parcours sur l’URL publique, vérifier l’import et les identifiants de production, remplacer le mot de passe du compte de démonstration et compléter les noms des membres ainsi que l’établissement.
 
 La soutenance prévue dure 15 minutes : démonstration des parcours principaux, puis questions à chacun des membres. Chaque membre doit pouvoir expliquer l’architecture et les règles métier, y compris les parties développées par les autres.

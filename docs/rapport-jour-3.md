@@ -37,6 +37,8 @@ Les routes sont déclarées dans le front controller. Le contrôleur d’emprunt
 
 ## État de la mise en ligne
 
-La version J3 fonctionne en local sous XAMPP. La publication publique reste en attente du choix et de la configuration de l’hébergeur : domaine, racine `public/`, base MySQL de production et fichier `.env` de production.
+La version est publiée sur https://biblionet.ct.ws/ via GitHub Actions et FTPS vers InfinityFree. Le catalogue public répond en HTTP 200; la recherche de « Dune » renvoie un résultat avec les disponibilités affichées. L’accès visiteur à `/emprunts` est redirigé vers la page de connexion.
 
-Les noms des membres, l’établissement et l’URL publique sont à compléter après le déploiement.
+Les opérations d’emprunt et de retour ont été testées en local. Leur parcours complet avec une session bibliothécaire sur le site public reste à vérifier.
+
+Les noms des membres et l’établissement restent à compléter.
