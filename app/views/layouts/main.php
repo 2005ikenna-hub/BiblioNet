@@ -27,7 +27,7 @@
         rel="stylesheet" />
 
   <!-- Styles personnalisés -->
-  <link href="<?= APP_URL ?>/assets/css/style.css?v=20261022-images1" rel="stylesheet" />
+  <link href="<?= APP_URL ?>/assets/css/style.css?v=20261022-images2" rel="stylesheet" />
   <script>
     document.addEventListener('error', (event) => {
       const image = event.target;

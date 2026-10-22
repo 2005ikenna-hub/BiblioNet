@@ -87,8 +87,9 @@ body {
 
 .bn-catalogue-cover {
   width: 100%;
-  aspect-ratio: 3 / 2;
-  object-fit: cover;
+  height: 220px;
+  object-fit: contain;
+  background: #e7edf2;
 }
 
 .bn-catalogue-placeholder,
