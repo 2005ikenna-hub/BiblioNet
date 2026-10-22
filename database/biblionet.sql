@@ -39,6 +39,7 @@ CREATE TABLE `livres` (
   `categorie`       VARCHAR(100) NOT NULL DEFAULT '',
   `annee`           SMALLINT UNSIGNED NOT NULL,
   `nb_exemplaires`  TINYINT UNSIGNED NOT NULL DEFAULT 1,
+  `image_path`      VARCHAR(255) NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -72,6 +73,7 @@ CREATE TABLE `adherents` (
   `prenom`    VARCHAR(100) NOT NULL,
   `classe`    VARCHAR(50)  NOT NULL DEFAULT '',
   `telephone` VARCHAR(20)  NOT NULL DEFAULT '',
+  `image_path` VARCHAR(255) NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

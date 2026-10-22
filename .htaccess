@@ -1,0 +1,9 @@
+Options -Indexes
+
+RewriteEngine On
+
+RewriteRule ^(?:app|config|database|docs|tests|\.github)(?:/|$) - [F,L,NC]
+RewriteRule ^(?:\.env(?:\..*)?|\.gitignore|README\.md|pdf_content\.txt|[^/]+\.pdf)$ - [F,L,NC]
+
+RewriteRule ^public(?:/|$) - [L,NC]
+RewriteRule ^(.*)$ public/$1 [L]

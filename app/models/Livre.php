@@ -91,8 +91,8 @@ class Livre
     {
         $pdo  = Database::getInstance();
         $stmt = $pdo->prepare('
-            INSERT INTO livres (titre, auteur, categorie, annee, nb_exemplaires)
-            VALUES (:titre, :auteur, :categorie, :annee, :nb_exemplaires)
+            INSERT INTO livres (titre, auteur, categorie, annee, nb_exemplaires, image_path)
+            VALUES (:titre, :auteur, :categorie, :annee, :nb_exemplaires, :image_path)
         ');
         $stmt->execute([
             ':titre'          => $data['titre'],
@@ -100,6 +100,7 @@ class Livre
             ':categorie'      => $data['categorie'] ?? '',
             ':annee'          => (int) $data['annee'],
             ':nb_exemplaires' => (int) ($data['nb_exemplaires'] ?? 1),
+            ':image_path'     => $data['image_path'] ?? null,
         ]);
         return (int) $pdo->lastInsertId();
     }
@@ -111,7 +112,7 @@ class Livre
         $stmt = $pdo->prepare('
             UPDATE livres
             SET titre = :titre, auteur = :auteur, categorie = :categorie,
-                annee = :annee, nb_exemplaires = :nb_exemplaires
+                annee = :annee, nb_exemplaires = :nb_exemplaires, image_path = :image_path
             WHERE id = :id
         ');
         $stmt->execute([
@@ -120,6 +121,7 @@ class Livre
             ':categorie'      => $data['categorie'] ?? '',
             ':annee'          => (int) $data['annee'],
             ':nb_exemplaires' => (int) ($data['nb_exemplaires'] ?? 1),
+            ':image_path'     => $data['image_path'] ?? null,
             ':id'             => $id,
         ]);
     }

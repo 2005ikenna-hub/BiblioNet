@@ -16,3 +16,7 @@ Thumbs.db
 .vscode/
 .idea/
 *.sublime-workspace
+
+# Images envoyées depuis l'application
+public/uploads/*
+!public/uploads/.htaccess

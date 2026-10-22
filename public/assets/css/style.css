@@ -12,6 +12,7 @@
   --bn-radius:    0.75rem;
   --bn-shadow:    0 4px 20px rgba(0,0,0,.08);
   --bn-trans:     0.25s ease;
+  --bn-library-image: url('https://st.hzcdn.com/simgs/5d8173a403f5ff2b_4-3536/home-design.jpg');
 }
 
 /* --- Base --- */
@@ -21,7 +22,15 @@ html { scroll-behavior: smooth; }
 
 body {
   font-family: 'Inter', sans-serif;
-  background: var(--bn-light);
+  background-color: var(--bn-light);
+  background-image:
+    linear-gradient(rgba(244,247,251,.91), rgba(244,247,251,.95)),
+    var(--bn-library-image),
+    var(--bn-library-image);
+  background-size: cover, 30rem auto, 27rem auto;
+  background-position: center, left 10rem top 18rem, right 3rem bottom 7rem;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   color: #2c3e50;
   min-height: 100vh;
   display: flex;
@@ -76,9 +85,70 @@ body {
   box-shadow: 0 8px 30px rgba(0,0,0,.12);
 }
 
+.bn-catalogue-cover {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+}
+
+.bn-catalogue-placeholder,
+.bn-table-placeholder {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #e7edf2;
+  color: #607587;
+}
+
+.bn-catalogue-placeholder {
+  font-size: 2rem;
+}
+
+.bn-table-thumbnail {
+  width: 44px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.bn-table-placeholder {
+  width: 44px;
+  height: 56px;
+  border-radius: 4px;
+}
+
+.bn-table-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+
+.bn-image-preview {
+  display: block;
+  max-width: 100%;
+  width: auto;
+  height: 220px;
+  object-fit: contain;
+  border: 1px solid #d9e1e7;
+  border-radius: 4px;
+  background: #f4f7fb;
+}
+
+.bn-avatar-preview {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+}
+
 /* --- Hero section (catalogue) --- */
 .bn-hero {
-  background: linear-gradient(135deg, var(--bn-dark) 0%, var(--bn-primary) 100%);
+  background-color: var(--bn-dark);
+  background-image:
+    linear-gradient(115deg, rgba(15,34,55,.82), rgba(26,60,94,.68)),
+    var(--bn-library-image);
+  background-size: cover;
+  background-position: center 46%;
+  background-repeat: no-repeat;
   color: #fff;
   padding: 4rem 0 3rem;
   margin-bottom: 2.5rem;
@@ -168,5 +238,11 @@ body {
 
 /* --- Responsive --- */
 @media (max-width: 576px) {
+  body {
+    background-size: cover, 18rem auto, 16rem auto;
+    background-position: center, left -7rem top 20rem, right -7rem bottom 6rem;
+    background-attachment: scroll;
+  }
+
   .bn-hero { border-radius: 0; }
 }

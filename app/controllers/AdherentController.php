@@ -2,7 +2,9 @@
 namespace App\Controllers;
 
 use App\Core\Controller;
+use App\Core\ImageUpload;
 use App\Models\Adherent;
+use RuntimeException;
 
 class AdherentController extends Controller
 {
@@ -35,7 +37,18 @@ class AdherentController extends Controller
             return;
         }
 
-        Adherent::create($data);
+        try {
+            $data['image_path'] = ImageUpload::store('image', 'adherents');
+            Adherent::create($data);
+        } catch (RuntimeException $error) {
+            if (!empty($data['image_path'])) {
+                ImageUpload::delete($data['image_path'], 'adherents');
+            }
+            http_response_code(422);
+            $this->renderForm($data, [$error->getMessage()]);
+            return;
+        }
+
         $this->flash('success', 'L\'adhérent a été ajouté.');
         $this->redirect('adherents');
     }
@@ -56,7 +69,14 @@ class AdherentController extends Controller
         $this->requireAuth();
         $this->requirePost();
         $this->verifyCsrfToken();
+        $adherent = Adherent::find($id);
+        if (!$adherent) {
+            $this->flash('warning', 'Adhérent introuvable.');
+            $this->redirect('adherents');
+        }
+
         $data = $this->formData();
+        $data['image_path'] = $adherent['image_path'] ?? null;
         $errors = $this->validate($data);
         if ($errors) {
             http_response_code(422);
@@ -64,12 +84,22 @@ class AdherentController extends Controller
             $this->renderForm($data, $errors);
             return;
         }
-        if (!Adherent::find($id)) {
-            $this->flash('warning', 'Adhérent introuvable.');
-            $this->redirect('adherents');
+        try {
+            $newImagePath = ImageUpload::store('image', 'adherents');
+        } catch (RuntimeException $error) {
+            http_response_code(422);
+            $data['id'] = $id;
+            $this->renderForm($data, [$error->getMessage()]);
+            return;
         }
 
+        if ($newImagePath !== null) {
+            $data['image_path'] = $newImagePath;
+        }
         Adherent::update($id, $data);
+        if ($newImagePath !== null) {
+            ImageUpload::delete($adherent['image_path'] ?? null, 'adherents');
+        }
         $this->flash('success', 'L\'adhérent a été modifié.');
         $this->redirect('adherents');
     }
@@ -79,7 +109,9 @@ class AdherentController extends Controller
         $this->requireAuth();
         $this->requirePost();
         $this->verifyCsrfToken();
-        if (Adherent::delete($id)) {
+        $adherent = Adherent::find($id);
+        if ($adherent && Adherent::delete($id)) {
+            ImageUpload::delete($adherent['image_path'] ?? null, 'adherents');
             $this->flash('success', 'L\'adhérent a été supprimé.');
         } else {
             $this->flash('warning', 'Adhérent introuvable ou lié à un emprunt ; suppression refusée.');

@@ -2,7 +2,9 @@
 namespace App\Controllers;
 
 use App\Core\Controller;
+use App\Core\ImageUpload;
 use App\Models\Livre;
+use RuntimeException;
 
 class LivreController extends Controller
 {
@@ -35,7 +37,18 @@ class LivreController extends Controller
             return;
         }
 
-        Livre::create($data);
+        try {
+            $data['image_path'] = ImageUpload::store('image', 'livres');
+            Livre::create($data);
+        } catch (RuntimeException $error) {
+            if (!empty($data['image_path'])) {
+                ImageUpload::delete($data['image_path'], 'livres');
+            }
+            http_response_code(422);
+            $this->renderForm($data, [$error->getMessage()]);
+            return;
+        }
+
         $this->flash('success', 'Le livre a été ajouté.');
         $this->redirect('livres');
     }
@@ -56,7 +69,14 @@ class LivreController extends Controller
         $this->requireAuth();
         $this->requirePost();
         $this->verifyCsrfToken();
+        $livre = Livre::find($id);
+        if (!$livre) {
+            $this->flash('warning', 'Livre introuvable.');
+            $this->redirect('livres');
+        }
+
         $data = $this->formData();
+        $data['image_path'] = $livre['image_path'] ?? null;
         $errors = $this->validate($data);
         if ($errors) {
             http_response_code(422);
@@ -64,12 +84,23 @@ class LivreController extends Controller
             $this->renderForm($data, $errors);
             return;
         }
-        if (!Livre::find($id)) {
-            $this->flash('warning', 'Livre introuvable.');
-            $this->redirect('livres');
+
+        try {
+            $newImagePath = ImageUpload::store('image', 'livres');
+        } catch (RuntimeException $error) {
+            http_response_code(422);
+            $data['id'] = $id;
+            $this->renderForm($data, [$error->getMessage()]);
+            return;
         }
 
+        if ($newImagePath !== null) {
+            $data['image_path'] = $newImagePath;
+        }
         Livre::update($id, $data);
+        if ($newImagePath !== null) {
+            ImageUpload::delete($livre['image_path'] ?? null, 'livres');
+        }
         $this->flash('success', 'Le livre a été modifié.');
         $this->redirect('livres');
     }
@@ -79,7 +110,9 @@ class LivreController extends Controller
         $this->requireAuth();
         $this->requirePost();
         $this->verifyCsrfToken();
-        if (Livre::delete($id)) {
+        $livre = Livre::find($id);
+        if ($livre && Livre::delete($id)) {
+            ImageUpload::delete($livre['image_path'] ?? null, 'livres');
             $this->flash('success', 'Le livre a été supprimé.');
         } else {
             $this->flash('warning', 'Livre introuvable ou lié à un emprunt ; suppression refusée.');

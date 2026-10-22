@@ -56,6 +56,11 @@
 
         <div class="col fade-in-up" style="animation-delay: <?= $i * 0.04 ?>s">
           <div class="bn-card card h-100 p-0">
+            <?php if (!empty($livre['image_path'])): ?>
+              <img src="<?= APP_URL ?>/<?= htmlspecialchars($livre['image_path'], ENT_QUOTES, 'UTF-8') ?>" alt="Couverture de <?= htmlspecialchars($livre['titre'], ENT_QUOTES, 'UTF-8') ?>" class="bn-catalogue-cover">
+            <?php else: ?>
+              <div class="bn-catalogue-cover bn-catalogue-placeholder" aria-hidden="true"><i class="bi bi-book-half"></i></div>
+            <?php endif; ?>
             <!-- En-tête coloré selon disponibilité -->
             <div class="card-header text-white fw-semibold rounded-top"
                  style="background: <?= $dispo > 0 ? 'linear-gradient(135deg,#1a3c5e,#2980b9)' : 'linear-gradient(135deg,#7f8c8d,#95a5a6)' ?>">

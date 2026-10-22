@@ -1,0 +1,49 @@
+name: Deploy BiblioNet to InfinityFree
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: infinityfree-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Upload site over FTPS
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Upload site to InfinityFree
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+        with:
+          server: ftpupload.net
+          username: ${{ secrets.INFINITYFREE_FTP_USERNAME }}
+          password: ${{ secrets.INFINITYFREE_FTP_PASSWORD }}
+          protocol: ftps
+          port: 21
+          server-dir: ${{ vars.INFINITYFREE_FTP_DIRECTORY }}
+          dangerous-clean-slate: false
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.github/**
+            **/node_modules/**
+            **/.env*
+            .gitignore
+            README.md
+            docs/**
+            tests/**
+            database/**
+            **/*.pdf
+            pdf_content.txt
+            public/uploads/**/*.jpg
+            public/uploads/**/*.png
+            public/uploads/**/*.webp

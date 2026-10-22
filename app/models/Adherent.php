@@ -28,14 +28,15 @@ class Adherent
     {
         $pdo = Database::getInstance();
         $stmt = $pdo->prepare('
-            INSERT INTO adherents (nom, prenom, classe, telephone)
-            VALUES (:nom, :prenom, :classe, :telephone)
+            INSERT INTO adherents (nom, prenom, classe, telephone, image_path)
+            VALUES (:nom, :prenom, :classe, :telephone, :image_path)
         ');
         $stmt->execute([
             ':nom' => $data['nom'],
             ':prenom' => $data['prenom'],
             ':classe' => $data['classe'] ?? '',
             ':telephone' => $data['telephone'] ?? '',
+            ':image_path' => $data['image_path'] ?? null,
         ]);
         return (int) $pdo->lastInsertId();
     }
@@ -45,7 +46,7 @@ class Adherent
         $pdo = Database::getInstance();
         $stmt = $pdo->prepare('
             UPDATE adherents
-            SET nom = :nom, prenom = :prenom, classe = :classe, telephone = :telephone
+            SET nom = :nom, prenom = :prenom, classe = :classe, telephone = :telephone, image_path = :image_path
             WHERE id = :id
         ');
         $stmt->execute([
@@ -53,6 +54,7 @@ class Adherent
             ':prenom' => $data['prenom'],
             ':classe' => $data['classe'] ?? '',
             ':telephone' => $data['telephone'] ?? '',
+            ':image_path' => $data['image_path'] ?? null,
             ':id' => $id,
         ]);
     }
