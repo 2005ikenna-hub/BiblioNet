@@ -24,14 +24,14 @@ La migration `002_images_livres_adherents.sql` ajoute les colonnes nécessaires 
 - Lint PHP et test automatisé du modèle d’emprunt réussis.
 - Tests navigateur réussis pour ajout, affichage, remplacement et suppression d’images.
 
-La base InfinityFree affichée dans phpMyAdmin contient les quatre tables attendues, avec 18 livres, 10 adhérents, 7 emprunts et un compte bibliothécaire. Les fiches temporaires créées pendant les tests locaux ont été supprimées. Une photo d’adhérent a un chemin enregistré mais le fichier n’est pas accessible sur le serveur. Un fallback vers l’avatar par défaut a été ajouté au code local; il apparaîtra en production après le prochain push.
+La base InfinityFree affichée dans phpMyAdmin contient les quatre tables attendues, avec 18 lignes dans `livres`, 10 adhérents, 7 emprunts et un compte bibliothécaire. Le catalogue public affiche actuellement 14 cartes et contient deux fiches « Madame Bovary »; il faut vérifier la base utilisée par le site et corriger les doublons. La photo d’adhérent auparavant cassée est maintenant accessible directement par son URL et un fallback vers l’avatar par défaut est déployé. Les fiches temporaires créées pendant les tests locaux ont été supprimées.
 
 ![Catalogue public](capture-catalogue.png)
 
 ## Déploiement et soutenance
 
-Le site public est déployé sur InfinityFree à l’adresse https://biblionet.ct.ws/. GitHub Actions a terminé le transfert FTPS avec succès. Le catalogue et la recherche publique sont vérifiés en production; l’accès à `/emprunts` redirige vers la connexion si le visiteur n’est pas authentifié.
+Le site public est déployé sur InfinityFree à l’adresse https://biblionet.ct.ws/. GitHub Actions a terminé le transfert FTPS avec succès. Le catalogue, les recherches par titre et auteur, l’URL d’une photo et la redirection de `/emprunts` vers la connexion sont vérifiés en production.
 
-Avant la soutenance, il reste à tester les créations, modifications, suppressions et retours avec une session bibliothécaire en production. L’upload d’images doit aussi être retesté : InfinityFree signalait un blocage temporaire de certaines requêtes `multipart/form-data` à la date de ce bilan.
+Avant la soutenance, il reste à vérifier pourquoi phpMyAdmin affiche 18 livres mais le catalogue en rend 14, supprimer les doublons, puis tester les créations, modifications, suppressions, emprunts et retours avec une session bibliothécaire en production. Le blocage temporaire InfinityFree des requêtes `multipart/form-data` est résolu; l’upload doit être confirmé par un ajout depuis le formulaire.
 
 Avant la soutenance, remplacer le mot de passe de démonstration, renseigner les noms des membres et l’adresse publique, puis vérifier les parcours en ligne. Aucun mot de passe d’hébergement ou de base ne doit être ajouté au dépôt GitHub ni à ce rapport.

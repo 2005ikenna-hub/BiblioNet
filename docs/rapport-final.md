@@ -63,9 +63,9 @@ Une anomalie de la base locale provenait de l’ancien type MySQL `YEAR`, qui av
 
 ## 5. Déploiement et suite
 
-Le site est déployé sur https://biblionet.ct.ws/ depuis le dépôt GitHub avec GitHub Actions et FTPS. Le workflow a terminé avec succès. Le catalogue public, la recherche de « Dune » et la redirection d’un visiteur non connecté vers la page de connexion ont été vérifiés en production. La base InfinityFree observée contient quatre tables, 18 livres, 10 adhérents, 7 emprunts et un compte bibliothécaire.
+Le site est déployé sur https://biblionet.ct.ws/ depuis le dépôt GitHub avec GitHub Actions et FTPS. Le workflow a terminé avec succès. Le catalogue public, les recherches par titre et auteur, l’accès direct à une photo téléversée et la redirection d’un visiteur non connecté vers la page de connexion ont été vérifiés en production. La base InfinityFree observée contient quatre tables, 18 lignes dans `livres`, 10 adhérents, 7 emprunts et un compte bibliothécaire; le catalogue public rend actuellement 14 cartes, avec des doublons observés. La correspondance entre la base sélectionnée par le site et celle consultée dans phpMyAdmin doit être vérifiée.
 
-Les CRUD et retours doivent encore être testés en production après connexion bibliothécaire. Une photo d’adhérent référence un fichier absent de l’hébergement; un fallback vers l’avatar par défaut a été ajouté au code local et doit être poussé pour être publié. Le service MySQL XAMPP était arrêté lors du dernier contrôle local, le test PDO n’a donc pas pu être relancé à cette date.
+Les CRUD et retours doivent encore être testés en production après connexion bibliothécaire. Une photo qui ne chargeait pas est maintenant accessible après transfert dans `public/uploads/adherents/`; un fallback vers l’avatar par défaut est déployé. Le service MySQL XAMPP était arrêté lors du dernier contrôle local, le test PDO n’a donc pas pu être relancé à cette date.
 
 Avant la soutenance, tester tous les parcours sur l’URL publique, vérifier l’import et les identifiants de production, remplacer le mot de passe du compte de démonstration et compléter les noms des membres ainsi que l’établissement.
 

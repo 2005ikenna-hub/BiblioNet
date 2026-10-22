@@ -37,8 +37,8 @@ Les routes sont déclarées dans le front controller. Le contrôleur d’emprunt
 
 ## État de la mise en ligne
 
-La version est publiée sur https://biblionet.ct.ws/ via GitHub Actions et FTPS vers InfinityFree. Le catalogue public répond en HTTP 200; la recherche de « Dune » renvoie un résultat avec les disponibilités affichées. L’accès visiteur à `/emprunts` est redirigé vers la page de connexion.
+La version est publiée sur https://biblionet.ct.ws/ via GitHub Actions et FTPS vers InfinityFree. Le catalogue public répond en HTTP 200; les recherches par titre et auteur fonctionnent sur des ouvrages présents. « Dune » n’est pas présent dans le catalogue de production et renvoie donc zéro résultat, contrairement au jeu local. La recherche « Madame Bovary » renvoie deux fiches, ce qui révèle un doublon de données à corriger. L’accès visiteur à `/emprunts` est redirigé vers la page de connexion.
 
-Les opérations d’emprunt et de retour ont été testées en local. Leur parcours complet avec une session bibliothécaire sur le site public reste à vérifier.
+Quatorze cartes de livres sont actuellement visibles sur le site public, alors que phpMyAdmin affichait 18 lignes dans `livres`. Il reste à vérifier que le site utilise la même base et à nettoyer les doublons. Les opérations d’emprunt et de retour ont été testées en local; leur parcours complet en production avec une session bibliothécaire reste à vérifier.
 
 Les noms des membres et l’établissement restent à compléter.
